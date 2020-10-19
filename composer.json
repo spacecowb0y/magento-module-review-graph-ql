@@ -1,28 +1,30 @@
 {
-    "name": "front-commerce-magento/module-review-graph-ql",
-    "description": "N/A",
-    "type": "magento2-module",
-    "require": {
-        "php": "~7.3.0||~7.4.0",
-        "magento/module-catalog": "*",
-        "magento/module-review": "*",
-        "magento/module-store": "*",
-        "magento/framework": "*"
-    },
-    "suggest": {
-        "magento/module-graph-ql": "*",
-        "magento/module-graph-ql-cache": "*"
-    },
-    "license": [
-        "OSL-3.0",
-        "AFL-3.0"
+  "name": "front-commerce-magento/module-review-graph-ql",
+  "description": "This is a port of Magento 2.4.1 code for 2.3.x versions.",
+  "type": "magento2-module",
+  "require": {
+    "php": "~7.3.0||~7.4.0",
+    "magento/module-catalog": "*",
+    "magento/module-review": "*",
+    "magento/module-store": "*",
+    "magento/framework": "*"
+  },
+  "suggest": {
+    "magento/module-graph-ql": "*",
+    "magento/module-graph-ql-cache": "*"
+  },
+  "license": [
+    "OSL-3.0",
+    "AFL-3.0"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
     ],
-    "autoload": {
-        "files": [
-            "registration.php"
-        ],
-        "psr-4": {
-            "Magento\\ReviewGraphQl\\": ""
-        }
+    "psr-4": {
+      "Magento\\ReviewGraphQl\\": ""
     }
+  },
+  "minimum-stability": "stable",
+  "version": "4.1.0"
 }
