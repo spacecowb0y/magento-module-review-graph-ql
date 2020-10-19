@@ -7,7 +7,8 @@
     "magento/module-catalog": "*",
     "magento/module-review": "*",
     "magento/module-store": "*",
-    "magento/framework": "*"
+    "magento/framework": "*",
+    "cweagans/composer-patches": "^1.6"
   },
   "suggest": {
     "magento/module-graph-ql": "*",
@@ -26,5 +27,12 @@
     }
   },
   "minimum-stability": "stable",
-  "version": "4.1.0"
+  "version": "4.1.0",
+  "extra": {
+    "patches": {
+      "magento/module-review": {
+        "Backport Config Model from Magento 2.4.1 to the Review module": "https://raw.githubusercontent.com/front-commerce/magento-module-review-graph-ql/4.1.0/backport-review-config-model-from-2.4.1.patch"
+      }
+    }
+  }
 }
