@@ -1,38 +1,38 @@
 {
-  "name": "front-commerce-magento/module-review-graph-ql",
-  "description": "This is a port of Magento 2.4.1 code for 2.3.x versions.",
-  "type": "magento2-module",
-  "require": {
-    "php": "~7.3.0||~7.4.0",
-    "magento/module-catalog": "*",
-    "magento/module-review": "*",
-    "magento/module-store": "*",
-    "magento/framework": "*",
-    "cweagans/composer-patches": "^1.6"
-  },
-  "suggest": {
-    "magento/module-graph-ql": "*",
-    "magento/module-graph-ql-cache": "*"
-  },
-  "license": [
-    "OSL-3.0",
-    "AFL-3.0"
-  ],
-  "autoload": {
-    "files": [
-      "registration.php"
+    "name": "front-commerce-magento/module-review-graph-ql",
+    "description": "This is a port of Magento 2.4.1 code for 2.3.x versions.",
+    "type": "magento2-module",
+    "require": {
+        "php": "~7.3.0||~7.4.0",
+        "magento/module-catalog": "*",
+        "magento/module-review": "*",
+        "magento/module-store": "*",
+        "magento/framework": "*",
+        "cweagans/composer-patches": "^1.6"
+    },
+    "suggest": {
+        "magento/module-graph-ql": "*",
+        "magento/module-graph-ql-cache": "*"
+    },
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
     ],
-    "psr-4": {
-      "Magento\\ReviewGraphQl\\": ""
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\ReviewGraphQl\\": ""
+        }
+    },
+    "minimum-stability": "stable",
+    "version": "4.1.0",
+    "extra": {
+        "patches": {
+            "magento/module-review": {
+                "Backport Config Model from Magento 2.4.1 to the Review module": "https://raw.githubusercontent.com/front-commerce/magento-module-review-graph-ql/4.1.0/backport-review-config-model-from-2.4.1.patch"
+            }
+        }
     }
-  },
-  "minimum-stability": "stable",
-  "version": "4.1.0",
-  "extra": {
-    "patches": {
-      "magento/module-review": {
-        "Backport Config Model from Magento 2.4.1 to the Review module": "https://raw.githubusercontent.com/front-commerce/magento-module-review-graph-ql/4.1.0/backport-review-config-model-from-2.4.1.patch"
-      }
-    }
-  }
 }
