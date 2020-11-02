@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ruleset name="Custom ruleset">
+  <description>Front-Commerce PHP CodeSniffer rules</description>
+
+  <arg name="basepath" value="."/>
+  <file>.</file>
+
+  <rule ref="PHPCompatibility" />
+  <config name="testVersion" value="7.1-"/>
+
+  <rule ref="Magento2"/>
+
+</ruleset>

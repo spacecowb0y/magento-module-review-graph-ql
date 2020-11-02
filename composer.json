@@ -14,6 +14,11 @@
         "magento/module-graph-ql": "*",
         "magento/module-graph-ql-cache": "*"
     },
+    "require-dev": {
+        "phpcompatibility/php-compatibility": "*",
+        "squizlabs/php_codesniffer": "*",
+        "dealerdirect/phpcodesniffer-composer-installer": "*"
+    },
     "license": [
         "OSL-3.0",
         "AFL-3.0"
