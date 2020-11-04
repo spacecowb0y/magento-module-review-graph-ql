@@ -18,13 +18,17 @@ use Magento\Review\Model\ResourceModel\Rating\Collection as RatingCollection;
 use Magento\Review\Model\ResourceModel\Rating\CollectionFactory;
 use Magento\Review\Model\Review;
 use Magento\Review\Model\Review\Config as ReviewsConfig;
+use Magento\ReviewGraphQl\Compat\WithGraphQLContextValuesTrait;
 use Magento\Store\Api\Data\StoreInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Resolve data review rating metadata
  */
 class ProductReviewRatingsMetadata implements ResolverInterface
 {
+    use WithGraphQLContextValuesTrait;
+
     /**
      * @var CollectionFactory
      */
@@ -36,13 +40,22 @@ class ProductReviewRatingsMetadata implements ResolverInterface
     private $reviewsConfig;
 
     /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
      * @param CollectionFactory $ratingCollectionFactory
      * @param ReviewsConfig $reviewsConfig
      */
-    public function __construct(CollectionFactory $ratingCollectionFactory, ReviewsConfig $reviewsConfig)
-    {
+    public function __construct(
+        CollectionFactory $ratingCollectionFactory,
+        ReviewsConfig $reviewsConfig,
+        StoreManagerInterface $storeManager
+    ) {
         $this->ratingCollectionFactory = $ratingCollectionFactory;
         $this->reviewsConfig = $reviewsConfig;
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -71,7 +84,7 @@ class ProductReviewRatingsMetadata implements ResolverInterface
 
         $items = [];
         /** @var StoreInterface $store */
-        $store = $context->getExtensionAttributes()->getStore();
+        $store = $this->getStore($context, $this->storeManager);
 
         /** @var RatingCollection $ratingCollection */
         $ratingCollection = $this->ratingCollectionFactory->create();
