@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 declare(strict_types=1);
 
 namespace Magento\ReviewGraphQl\Model\Resolver\Product;
@@ -16,13 +18,17 @@ use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Review\Model\Review\Config as ReviewsConfig;
 use Magento\Review\Model\Review\SummaryFactory;
+use Magento\ReviewGraphQl\Compat\WithGraphQLContextValuesTrait;
 use Magento\Store\Api\Data\StoreInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Average rating for the product
  */
 class RatingSummary implements ResolverInterface
 {
+    use WithGraphQLContextValuesTrait;
+
     /**
      * @var SummaryFactory
      */
@@ -34,15 +40,23 @@ class RatingSummary implements ResolverInterface
     private $reviewsConfig;
 
     /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
      * @param SummaryFactory $summaryFactory
      * @param ReviewsConfig $reviewsConfig
+     * @param StoreManagerInterface $storeManager
      */
     public function __construct(
         SummaryFactory $summaryFactory,
-        ReviewsConfig $reviewsConfig
+        ReviewsConfig $reviewsConfig,
+        StoreManagerInterface $storeManager
     ) {
         $this->summaryFactory = $summaryFactory;
         $this->reviewsConfig = $reviewsConfig;
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -76,7 +90,7 @@ class RatingSummary implements ResolverInterface
         }
 
         /** @var StoreInterface $store */
-        $store = $context->getExtensionAttributes()->getStore();
+        $store = $this->getStore($context, $this->storeManager);
 
         /** @var Product $product */
         $product = $value['model'];

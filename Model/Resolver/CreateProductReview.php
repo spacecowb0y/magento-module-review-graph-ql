@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 declare(strict_types=1);
 
 namespace Magento\ReviewGraphQl\Model\Resolver;
@@ -16,15 +18,19 @@ use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Review\Helper\Data as ReviewHelper;
 use Magento\Review\Model\Review\Config as ReviewsConfig;
+use Magento\ReviewGraphQl\Compat\WithGraphQLContextValuesTrait;
 use Magento\ReviewGraphQl\Mapper\ReviewDataMapper;
 use Magento\ReviewGraphQl\Model\Review\AddReviewToProduct;
 use Magento\Store\Api\Data\StoreInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Create product review resolver
  */
 class CreateProductReview implements ResolverInterface
 {
+    use WithGraphQLContextValuesTrait;
+
     /**
      * @var ReviewHelper
      */
@@ -46,6 +52,11 @@ class CreateProductReview implements ResolverInterface
     private $reviewsConfig;
 
     /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
      * @param AddReviewToProduct $addReviewToProduct
      * @param ReviewDataMapper $reviewDataMapper
      * @param ReviewHelper $reviewHelper
@@ -55,13 +66,15 @@ class CreateProductReview implements ResolverInterface
         AddReviewToProduct $addReviewToProduct,
         ReviewDataMapper $reviewDataMapper,
         ReviewHelper $reviewHelper,
-        ReviewsConfig $reviewsConfig
+        ReviewsConfig $reviewsConfig,
+        StoreManagerInterface $storeManager
     ) {
 
         $this->addReviewToProduct = $addReviewToProduct;
         $this->reviewDataMapper = $reviewDataMapper;
         $this->reviewHelper = $reviewHelper;
         $this->reviewsConfig = $reviewsConfig;
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -110,7 +123,7 @@ class CreateProductReview implements ResolverInterface
             'detail' => $input['text'],
         ];
         /** @var StoreInterface $store */
-        $store = $context->getExtensionAttributes()->getStore();
+        $store = $this->getStore($context, $this->storeManager);
         $review = $this->addReviewToProduct->execute($data, $ratings, $sku, $customerId, (int) $store->getId());
 
         return ['review' => $this->reviewDataMapper->map($review)];
