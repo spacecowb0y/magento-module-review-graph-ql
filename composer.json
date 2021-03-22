@@ -3,7 +3,7 @@
   "description": "This is a port of Magento 2.4.1 code for 2.3.x versions.",
   "type": "magento2-module",
   "require": {
-    "php": "~7.1.3||~7.2.0||~7.3.0",
+    "php": "~7.1.3||~7.2.0||~7.3.0||~7.4.0",
     "magento/module-catalog": "*",
     "magento/module-review": "*",
     "magento/module-store": "*",
